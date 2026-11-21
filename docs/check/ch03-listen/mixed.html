@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第3章 クイズ・当てっこ｜単語チェックテスト</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+KR:wght@500;700;900&family=Shippori+Mincho:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--y:#FFC93C;--pu:#3B1E8C;--ink:#1E1830;--sub:#6E667D;--ok:#1E9E5A;--ng:#D2462C}
+*{box-sizing:border-box}
+body{margin:0;background:#FFC93C;background-image:radial-gradient(circle,rgba(91,47,181,.12) 2px,transparent 3px);background-size:24px 24px;font-family:'Noto Sans JP',sans-serif;color:var(--ink)}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 50px}
+.lamps{display:flex;justify-content:space-between;padding:0 4px}.lamps i{width:10px;height:10px;border-radius:50%;background:#fff}.lamps i:nth-child(even){background:#5B2FB5}
+header{text-align:center;margin:14px 0 18px}
+header .k{font-size:11px;letter-spacing:5px;color:#5E4A1A}
+header h1{display:inline-block;font-family:'Shippori Mincho',serif;font-size:30px;color:#fff;background:#5B2FB5;border-radius:14px;padding:10px 26px;margin:8px 0 6px;box-shadow:0 6px 0 #3B1E8C}
+header p{margin:2px 0 0;font-size:13px;color:#4E4759}
+.bar{height:10px;background:rgba(255,255,255,.6);border-radius:6px;margin:12px 0 0;overflow:hidden;border:2px solid var(--pu)}.bar i{display:block;height:100%;background:var(--pu);width:0;transition:width .3s}
+.sec{display:block;width:max-content;margin:24px auto -18px;position:relative;z-index:2;font-weight:900;font-size:14px;letter-spacing:2px;color:#fff;background:var(--pu);border-radius:30px;padding:8px 22px}
+.card{position:relative;background:#fff;border:5px solid var(--pu);border-radius:22px;padding:30px 18px 20px}
+.num{font-size:12px;color:var(--sub);text-align:center}
+.prompt{font-size:26px;font-weight:700;margin:8px 0 16px;line-height:1.5;text-align:center;color:var(--pu)}
+.prompt.kr{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:40px}
+.prompt.fill{font-family:'Noto Sans KR',sans-serif;font-size:23px;color:var(--ink);text-align:left}
+.blank{display:inline-block;min-width:80px;border-bottom:4px solid var(--pu)}
+.hint{font-size:15px;color:#4E4759;margin:-6px 0 16px;padding:10px 14px;background:#FFF0B8;border-radius:12px}
+.buzz{display:flex;justify-content:center;gap:14px;margin:2px 0 16px}.buzz i{width:22px;height:22px;border-radius:50%;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.opts{display:grid;gap:12px}
+.opts button{font:inherit;font-size:19px;font-weight:700;text-align:left;padding:13px 16px 13px 54px;position:relative;border-radius:14px;border:0;border-bottom:6px solid var(--pu);background:#FFFDF2;box-shadow:inset 0 0 0 2px #E8DFF7;color:var(--ink);cursor:pointer}
+.opts button.kr{font-family:'Noto Sans KR',sans-serif;font-size:22px}
+.opts button::before{content:attr(data-l);position:absolute;left:14px;top:50%;margin-top:-15px;width:30px;height:30px;border-radius:50%;background:var(--c);color:#3B1E8C;font:900 15px/30px 'Noto Sans JP';text-align:center}
+.opts button:active{transform:translateY(3px);border-bottom-width:3px}
+.opts button.ok{background:#E6F6EC;box-shadow:inset 0 0 0 3px var(--ok);border-bottom-color:var(--ok)}
+.opts button.ng{background:#FCE9E5;box-shadow:inset 0 0 0 3px var(--ng);border-bottom-color:var(--ng)}
+.opts button:disabled{cursor:default}
+.fb{margin-top:16px;padding:14px 16px;border-radius:14px;background:#F3EEFF;display:none}.fb b{font-size:18px;letter-spacing:1px}.fb .ex{font-family:'Noto Sans KR',sans-serif;font-size:18px;margin-top:6px}.fb .ja{font-size:14px;color:var(--sub)}
+.next{display:none;margin-top:16px;width:100%;font:inherit;font-weight:900;font-size:18px;padding:14px;border:0;border-radius:40px;background:#5B2FB5;color:#fff;cursor:pointer;box-shadow:0 5px 0 var(--pu)}
+.result{text-align:center}.score{font-family:'Shippori Mincho',serif;font-size:64px;color:#5B2FB5;margin:4px 0}
+.miss{text-align:left;margin-top:14px}.miss div{padding:10px 0;border-bottom:1px dashed #D9CCF5}.miss .w{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:20px;color:var(--pu)}
+.btns{display:grid;gap:10px;margin-top:18px}.btns button{font:inherit;font-weight:900;font-size:16px;padding:13px;border-radius:40px;border:3px solid var(--pu);background:#fff;color:var(--pu);cursor:pointer}.btns button.p{background:#5B2FB5;color:#fff;box-shadow:0 5px 0 var(--pu)}
+footer{text-align:center;font-size:12px;color:#5E4A1A;margin-top:26px;letter-spacing:2px}
+
+.play{display:block;margin:8px auto 16px;font:inherit;font-weight:900;font-size:18px;padding:12px 28px;border-radius:40px;border:3px solid var(--pu);background:#fff;color:var(--pu);cursor:pointer}
+.voice{text-align:center;font-size:11px;color:#5E4A1A;margin-top:10px}.voice button{font:inherit;font-size:11px;border:0;background:none;color:#5E4A1A;cursor:pointer;padding:2px 4px}.voice button.on{font-weight:900;text-decoration:underline}
+.vmsg{font-size:13px;color:var(--ng);text-align:center;margin:-8px 0 12px}
+.hint b,.fb .ja b{font-size:inherit;letter-spacing:0;font-weight:900;color:var(--pu);background:#FFE27A;padding:0 3px;border-radius:4px}
+.fb .ex b{color:var(--pu);background:#FFE27A;padding:0 3px;border-radius:4px;font-size:inherit;letter-spacing:0}
+.fb .ans{font-size:15px;margin-top:4px}.fb .ans span{font-family:'Noto Sans KR',sans-serif;font-weight:700}
+.score small{font-size:24px}.cnt{font-size:14px;color:var(--sub);margin:2px 0 8px}
+</style></head><body><div class="wrap">
+<div class="lamps"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><header><div class="k">CHAPTER 03 ／ QUIZ</div><h1>クイズ・当てっこ</h1><p>単語チェックテスト｜全<span id="tot"></span>問・100点満点</p><div class="bar"><i id="bar"></i></div></header>
+<div id="app"></div>
+<div class="voice">音声：<button data-m="A">A</button>／<button data-m="B">B</button></div>
+<footer>BTSの韓国語　単語編 ／ 韓活韓国語</footer></div>
+<script>
+const WORDS=[{"w": "고르다", "tr": "選ぶ"}, {"w": "찍다", "tr": "撮る・選ぶ"}, {"w": "누르다", "tr": "押す"}, {"w": "맞추다", "tr": "当てる・合わせる"}, {"w": "정답", "tr": "正解"}, {"w": "땡", "tr": "ブー（不正解の音）"}, {"w": "성공", "tr": "成功"}, {"w": "실패", "tr": "失敗"}, {"w": "인정", "tr": "認める"}, {"w": "꼴", "tr": "ビリ"}, {"w": "글자", "tr": "文字"}, {"w": "그림", "tr": "絵"}, {"w": "소리", "tr": "音・声"}, {"w": "뜨다", "tr": "（目を）開ける・浮かぶ"}, {"w": "넘다", "tr": "超える"}, {"w": "따르다", "tr": "ついていく・（飲み物を）注ぐ"}, {"w": "잠시", "tr": "ちょっと・しばらく"}, {"w": "천천히", "tr": "ゆっくり"}, {"w": "가만히", "tr": "じっと"}, {"w": "쉽다", "tr": "簡単だ"}, {"w": "어렵다", "tr": "難しい"}, {"w": "다르다", "tr": "違う"}, {"w": "마지막", "tr": "最後"}], AUDIO=[{"w": "고르다", "ko": "고르다", "ja": "選ぶ", "f": "audio/w_01.mp3"}, {"w": "찍다", "ko": "찍다", "ja": "撮る・選ぶ", "f": "audio/w_02.mp3"}, {"w": "누르다", "ko": "누르다", "ja": "押す", "f": "audio/w_03.mp3"}, {"w": "맞추다", "ko": "맞추다", "ja": "当てる・合わせる", "f": "audio/w_04.mp3"}, {"w": "정답", "ko": "정답", "ja": "正解", "f": "audio/w_05.mp3"}, {"w": "땡", "ko": "땡", "ja": "ブー（不正解の音）", "f": "audio/w_06.mp3"}, {"w": "성공", "ko": "성공", "ja": "成功", "f": "audio/w_07.mp3"}, {"w": "실패", "ko": "실패", "ja": "失敗", "f": "audio/w_08.mp3"}, {"w": "인정", "ko": "인정", "ja": "認める", "f": "audio/w_09.mp3"}, {"w": "꼴", "ko": "꼴등", "ja": "ビリ", "f": "audio/w_10.mp3"}, {"w": "글자", "ko": "글자", "ja": "文字", "f": "audio/w_11.mp3"}, {"w": "그림", "ko": "그림", "ja": "絵", "f": "audio/w_12.mp3"}, {"w": "소리", "ko": "소리", "ja": "音・声", "f": "audio/w_13.mp3"}, {"w": "뜨다", "ko": "뜨다", "ja": "（目を）開ける・浮かぶ", "f": "audio/w_14.mp3"}, {"w": "넘다", "ko": "넘다", "ja": "超える", "f": "audio/w_15.mp3"}, {"w": "따르다", "ko": "따르다", "ja": "ついていく・（飲み物を）注ぐ", "f": "audio/w_16.mp3"}, {"w": "잠시", "ko": "잠시", "ja": "ちょっと・しばらく", "f": "audio/w_17.mp3"}, {"w": "천천히", "ko": "천천히", "ja": "ゆっくり", "f": "audio/w_18.mp3"}, {"w": "가만히", "ko": "가만히", "ja": "じっと", "f": "audio/w_19.mp3"}, {"w": "쉽다", "ko": "쉽다", "ja": "簡単だ", "f": "audio/w_20.mp3"}, {"w": "어렵다", "ko": "어렵다", "ja": "難しい", "f": "audio/w_21.mp3"}, {"w": "다르다", "ko": "다르다", "ja": "違う", "f": "audio/w_22.mp3"}, {"w": "마지막", "ko": "마지막", "ja": "最後", "f": "audio/w_23.mp3"}, {"w": "고르다", "ko": "하나만 골라.", "ja": "1つだけ選んで。", "f": "audio/p_01.mp3"}, {"w": "찍다", "ko": "사진 찍자!", "ja": "写真撮ろう！", "f": "audio/p_02.mp3"}, {"w": "누르다", "ko": "빨리 눌러!", "ja": "早く押して！", "f": "audio/p_03.mp3"}, {"w": "맞추다", "ko": "내가 맞췄어!", "ja": "俺が当てた！", "f": "audio/p_04.mp3"}, {"w": "정답", "ko": "정답! 정답입니다!", "ja": "正解！ 正解です！", "f": "audio/p_05.mp3"}, {"w": "땡", "ko": "땡! 틀렸습니다.", "ja": "ブー！ 不正解です。", "f": "audio/p_06.mp3"}, {"w": "성공", "ko": "성공!", "ja": "成功！", "f": "audio/p_07.mp3"}, {"w": "실패", "ko": "실패!", "ja": "失敗！", "f": "audio/p_08.mp3"}, {"w": "인정", "ko": "인정!", "ja": "認める！", "f": "audio/p_09.mp3"}, {"w": "꼴", "ko": "내가 꼴등이야?", "ja": "俺がビリ？", "f": "audio/p_10.mp3"}, {"w": "소리", "ko": "무슨 소리야?", "ja": "何言ってんの？", "f": "audio/p_11.mp3"}, {"w": "뜨다", "ko": "눈 떠!", "ja": "目開けて！", "f": "audio/p_12.mp3"}, {"w": "잠시", "ko": "잠시만요!", "ja": "ちょっと待ってください！", "f": "audio/p_13.mp3"}, {"w": "천천히", "ko": "천천히 해.", "ja": "ゆっくりやって。", "f": "audio/p_14.mp3"}, {"w": "가만히", "ko": "가만히 있어.", "ja": "じっとしてて。", "f": "audio/p_15.mp3"}, {"w": "쉽다", "ko": "쉽네?", "ja": "簡単じゃん？", "f": "audio/p_16.mp3"}, {"w": "어렵다", "ko": "아, 어렵다.", "ja": "ああ、難しい。", "f": "audio/p_17.mp3"}, {"w": "다르다", "ko": "완전 다른데?", "ja": "全然違うじゃん？", "f": "audio/p_18.mp3"}], FILL=[{"w": "고르다", "n": 2, "p": "정국아, 먹고 싶은 거 <span class=\"blank\">　</span>.", "hint": "ジョングク、食べたいもの<b>選びな</b>。", "a": "골라", "wrong": ["다른데", "맞춰야", "뜨자마자"], "ex": ["정국아, 먹고 싶은 거 <b>골라</b>.", "ジョングク、食べたいもの<b>選びな</b>。"]}, {"w": "찍다", "n": 2, "p": "진 형은 사진 <span class=\"blank\">　</span> 걸 좋아해.", "hint": "ジン兄さんは写真を<b>撮る</b>のが好き。", "a": "찍는", "wrong": ["눌렀어", "어려우면", "따라"], "ex": ["진 형은 사진 <b>찍는</b> 걸 좋아해.", "ジン兄さんは写真を<b>撮る</b>のが好き。"]}, {"w": "누르다", "n": 2, "p": "진 형이 제일 먼저 벨을 <span class=\"blank\">　</span>.", "hint": "ジン兄さんが一番先にベルを<b>押した</b>。", "a": "눌렀어", "wrong": ["달라", "고르면", "쉽지"], "ex": ["진 형이 제일 먼저 벨을 <b>눌렀어</b>.", "ジン兄さんが一番先にベルを<b>押した</b>。"]}, {"w": "맞추다", "n": 2, "p": "일곱 명이 동시에 <span class=\"blank\">　</span> 그게 기적이지.", "hint": "7人が同時に<b>当てたら</b>、それは奇跡だよ。", "a": "맞추면", "wrong": ["눌러", "어려운", "찍는"], "ex": ["일곱 명이 동시에 <b>맞추면</b> 그게 기적이지.", "7人が同時に<b>当てたら</b>、それは奇跡だよ。"]}, {"w": "정답", "n": 2, "p": "정국아, <span class=\"blank\">　</span> 알면 손 들어.", "hint": "ジョングク、<b>正解</b>分かったら手挙げて。", "a": "정답", "wrong": ["어렵다", "가만히", "소리"], "ex": ["정국아, <b>정답</b> 알면 손 들어.", "ジョングク、<b>正解</b>分かったら手挙げて。"]}, {"w": "땡", "n": 2, "p": "정국아, <span class=\"blank\">　</span>이야. 아쉽다.", "hint": "ジョングク、<b>ブー</b>だよ。惜しい。", "a": "땡", "wrong": ["인정", "잠시", "소리"], "ex": ["정국아, <b>땡</b>이야. 아쉽다.", "ジョングク、<b>ブー</b>だよ。惜しい。"]}, {"w": "성공", "n": 2, "p": "진 형이 <span class=\"blank\">　</span>할 때까지 기다릴게.", "hint": "ジン兄さんが<b>成功</b>するまで待ってるよ。", "a": "성공", "wrong": ["소리", "잠시", "꼴"], "ex": ["진 형이 <b>성공</b>할 때까지 기다릴게.", "ジン兄さんが<b>成功</b>するまで待ってるよ。"]}, {"w": "실패", "n": 3, "p": "정국아, <span class=\"blank\">　</span>해도 괜찮아.", "hint": "ジョングク、<b>失敗</b>しても大丈夫。", "a": "실패", "wrong": ["잠시", "꼴", "땡"], "ex": ["정국아, <b>실패</b>해도 괜찮아.", "ジョングク、<b>失敗</b>しても大丈夫。"]}, {"w": "인정", "n": 3, "p": "진 형 요리 실력은 <span class=\"blank\">　</span>.", "hint": "ジン兄さんの料理の腕は<b>認める</b>。", "a": "인정", "wrong": ["천천히", "실패", "그림"], "ex": ["진 형 요리 실력은 <b>인정</b>.", "ジン兄さんの料理の腕は<b>認める</b>。"]}, {"w": "꼴", "n": 2, "p": "이번 게임 <span class=\"blank\">　</span>등은 벌칙이야.", "hint": "今回のゲームの<b>ビリ</b>は罰ゲームだよ。", "a": "꼴", "wrong": ["성공", "땡", "정답"], "ex": ["이번 게임 <b>꼴</b>등은 벌칙이야.", "今回のゲームの<b>ビリ</b>は罰ゲームだよ。"]}, {"w": "글자", "n": 3, "p": "정국아, <span class=\"blank\">　</span> 좀 크게 써.", "hint": "ジョングク、<b>字</b>をもっと大きく書いて。", "a": "글자", "wrong": ["마지막", "어렵다", "실패"], "ex": ["정국아, <b>글자</b> 좀 크게 써.", "ジョングク、<b>字</b>をもっと大きく書いて。"]}, {"w": "그림", "n": 2, "p": "정국아, 너 <span class=\"blank\">　</span> 진짜 잘 그린다.", "hint": "ジョングク、<b>絵</b>ほんとに上手だね。", "a": "그림", "wrong": ["어렵다", "정답", "잠시"], "ex": ["정국아, 너 <b>그림</b> 진짜 잘 그린다.", "ジョングク、<b>絵</b>ほんとに上手だね。"]}, {"w": "소리", "n": 2, "p": "진 형 웃음<span class=\"blank\">　</span> 때문에 안 들려.", "hint": "ジン兄さんの笑い<b>声</b>で聞こえない。", "a": "소리", "wrong": ["가만히", "성공", "땡"], "ex": ["진 형 웃음<b>소리</b> 때문에 안 들려.", "ジン兄さんの笑い<b>声</b>で聞こえない。"]}, {"w": "뜨다", "n": 2, "p": "눈 감으라니까 왜 실눈 <span class=\"blank\">　</span>?", "hint": "目閉じろって言ったのに、なんで薄目<b>開けて</b>るの？", "a": "떠", "wrong": ["골라", "눌러", "달라"], "ex": ["눈 감으라니까 왜 실눈 <b>떠</b>?", "目閉じろって言ったのに、なんで薄目<b>開けて</b>るの？"]}, {"w": "넘다", "n": 3, "p": "윤기 형, 제한 시간 <span class=\"blank\">　</span>.", "hint": "ユンギ兄さん、制限時間を<b>過ぎました</b>。", "a": "넘으셨어요", "wrong": ["고르면", "떴다", "찍고"], "ex": ["윤기 형, 제한 시간 <b>넘으셨어요</b>.", "ユンギ兄さん、制限時間を<b>過ぎました</b>。"]}, {"w": "따르다", "n": 2, "p": "남준이 형 지시를 <span class=\"blank\">　</span>.", "hint": "ナムジュン兄さんの指示に<b>従って</b>ください。", "a": "따르세요", "wrong": ["뜨자마자", "다른", "고르면"], "ex": ["남준이 형 지시를 <b>따르세요</b>.", "ナムジュン兄さんの指示に<b>従って</b>ください。"]}, {"w": "잠시", "n": 5, "p": "윤기 형, <span class=\"blank\">　</span>만요. 이거 반칙 아니에요?", "hint": "ユンギ兄さん、<b>ちょっと</b>待ってください。これ反則じゃないですか？", "a": "잠시", "wrong": ["땡", "꼴", "어렵다"], "ex": ["윤기 형, <b>잠시</b>만요. 이거 반칙 아니에요?", "ユンギ兄さん、<b>ちょっと</b>待ってください。これ反則じゃないですか？"]}, {"w": "천천히", "n": 2, "p": "정국아, <span class=\"blank\">　</span> 말해 봐.", "hint": "ジョングク、<b>ゆっくり</b>言ってみて。", "a": "천천히", "wrong": ["마지막", "인정", "꼴"], "ex": ["정국아, <b>천천히</b> 말해 봐.", "ジョングク、<b>ゆっくり</b>言ってみて。"]}, {"w": "가만히", "n": 2, "p": "진 형은 <span class=\"blank\">　</span> 있어도 웃겨.", "hint": "ジン兄さんは、<b>じっと</b>してても面白い。", "a": "가만히", "wrong": ["어렵다", "마지막", "글자"], "ex": ["진 형은 <b>가만히</b> 있어도 웃겨.", "ジン兄さんは、<b>じっと</b>してても面白い。"]}, {"w": "쉽다", "n": 2, "p": "정국아, <span class=\"blank\">　</span> 거부터 하자.", "hint": "ジョングク、<b>簡単なのか</b>らやろう。", "a": "쉬운", "wrong": ["뜨자마자", "맞출", "넘어야"], "ex": ["정국아, <b>쉬운</b> 거부터 하자.", "ジョングク、<b>簡単なのか</b>らやろう。"]}, {"w": "어렵다", "n": 3, "p": "남준이 형, 이 문제 너무 <span class=\"blank\">　</span>.", "hint": "ナムジュン兄さん、この問題<b>難しすぎる</b>。", "a": "어렵다", "wrong": ["글자", "그림", "소리"], "ex": ["남준이 형, 이 문제 너무 <b>어렵다</b>.", "ナムジュン兄さん、この問題<b>難しすぎる</b>。"]}, {"w": "다르다", "n": 2, "p": "두 사진, 어디가 <span class=\"blank\">　</span>?", "hint": "二枚の写真、どこが<b>違う</b>？", "a": "달라", "wrong": ["찍은", "넘어야", "누르면"], "ex": ["두 사진, 어디가 <b>달라</b>?", "二枚の写真、どこが<b>違う</b>？"]}, {"w": "마지막", "n": 2, "p": "나는 맨 <span class=\"blank\">　</span>에 할게.", "hint": "俺は一番<b>最後</b>にやるよ。", "a": "마지막", "wrong": ["그림", "가만히", "어렵다"], "ex": ["나는 맨 <b>마지막</b>에 할게.", "俺は一番<b>最後</b>にやるよ。"]}], EXAMPLES={"고르다": [["정국아, 먹고 싶은 거 <b>골라</b>.", "ジョングク、食べたいもの<b>選びな</b>。"], ["슈가 형, 카드 한 장 <b>고르면</b> 돼요.", "シュガ兄さん、カードを1枚<b>選べばい</b>いです。"], ["이 중에서 <b>고르면</b> 되는 거야?", "この中から<b>選べばい</b>いの？"], ["지민아, 너 주려고 내가 직접 <b>골랐어</b>.", "ジミン、お前にあげようと思って、俺が自分で<b>選んだ</b>。"]], "찍다": [["진 형은 사진 <b>찍는</b> 걸 좋아해.", "ジン兄さんは写真を<b>撮る</b>のが好き。"], ["호석이 형, 오늘 <b>찍은</b> 영상 나중에 보내 줘.", "ホソク兄さん、今日<b>撮った</b>動画、あとで送って。"], ["슈가 형, 카메라 <b>찍고</b> 있어요. 웃어요.", "シュガ兄さん、カメラ回ってますよ。笑って。"], ["모르면 <b>찍어</b>. <b>찍는</b> 것도 실력이야.", "分からなかったら勘で答えな。勘も実力のうち。"]], "누르다": [["진 형이 제일 먼저 벨을 <b>눌렀어</b>.", "ジン兄さんが一番先にベルを<b>押した</b>。"], ["이 버튼 <b>누르면</b> 시작이야.", "このボタンを<b>押したら</b>スタートだよ。"], ["호석이 형, 어깨 좀 <b>눌러</b> 줘. 뭉쳤어.", "ホソク兄さん、肩ちょっと<b>押して</b>。凝ってる。"], ["윤기 형, 정답 알면 버튼 <b>누르세요</b>.", "ユンギ兄さん、正解分かったらボタン<b>押して</b>ください。"]], "맞추다": [["일곱 명이 동시에 <b>맞추면</b> 그게 기적이지.", "7人が同時に<b>当てたら</b>、それは奇跡だよ。"], ["태형아, 우리 일정 <b>맞춰야</b> 돼.", "テヒョン、俺ら、スケジュールを<b>合わせないと</b>。"], ["이번엔 꼭 <b>맞출</b> 수 있을 거야!", "今度こそ絶対<b>当てられる</b>ぞ！"], ["남준아, 아무리 들어도 못 <b>맞춰</b>.", "ナムジュン、いくら聞いても<b>当てられな</b>いよ。"]], "정답": [["정국아, <b>정답</b> 알면 손 들어.", "ジョングク、<b>正解</b>分かったら手挙げて。"], ["<b>정답</b>은 3번이야. 확실해.", "<b>正解</b>は3番だよ。間違いない。"], ["지민아, 네가 말한 게 <b>정답</b>이었어. 미안.", "ジミン、お前が言ったのが<b>正解</b>だったよ。ごめん。"], ["<b>정답</b> 맞히면 벌칙 면제래!", "<b>正解</b>したら罰ゲーム免除だって！"]], "땡": [["정국아, <b>땡</b>이야. 아쉽다.", "ジョングク、<b>ブー</b>だよ。惜しい。"], ["<b>땡</b> <b>땡</b>! 다시 생각해 보세요.", "<b>ブー</b><b>ブー</b>！もう一度考えてみてください。"], ["남준이 형이 <b>땡</b> 받으니까 괜히 기분 좋다.", "ナムジュン兄さんが<b>ブー</b>くらってるの、なんか気分いい。"], ["<b>땡</b> 소리를 내가 직접 냈어. <b>땡</b>!", "<b>ブー</b>の音、自分で出したよ。<b>ブー</b>！"]], "성공": [["진 형이 <b>성공</b>할 때까지 기다릴게.", "ジン兄さんが<b>成功</b>するまで待ってるよ。"], ["<b>성공</b>했는데 다들 표정이 왜 그래?", "<b>成功</b>したのに、みんななんでそんな顔してるの？"], ["호석이 형 덕분에 <b>성공</b>했어.", "ホソク兄さんのおかげで<b>成功</b>した。"], ["<b>성공</b> <b>성공</b>! 정국이가 해냈어!", "<b>成功</b>、<b>成功</b>！ジョングクがやった！"]], "실패": [["<b>실패</b> <b>실패</b>! 다시 처음부터!", "<b>失敗</b>、<b>失敗</b>！また最初から！"], ["정국아, <b>실패</b>해도 괜찮아.", "ジョングク、<b>失敗</b>しても大丈夫。"], ["<b>실패</b>하면 처음부터 해야 돼.", "<b>失敗</b>したら、最初からやらなきゃいけない。"], ["지민아, <b>실패</b>한 거 아무도 몰라. 내가 비밀로 할게.", "ジミン、<b>失敗</b>したこと誰も知らないよ。俺が秘密にしとく。"]], "인정": [["<b>인정</b>? 어, <b>인정</b>.", "<b>認める</b>？うん、<b>認める</b>。"], ["진 형 요리 실력은 <b>인정</b>.", "ジン兄さんの料理の腕は<b>認める</b>。"], ["남준이 형도 <b>인정</b>했잖아. 내가 이긴 거.", "ナムジュン兄さんも<b>認めたじゃ</b>ん。俺が勝ったって。"], ["윤기 형, 이 답 <b>인정</b>해 주세요. 반은 맞았잖아요.", "ユンギ兄さん、この答え<b>認めて</b>ください。半分は合ってるじゃないですか。"]], "꼴": [["이번 게임 <b>꼴</b>등은 벌칙이야.", "今回のゲームの<b>ビリ</b>は罰ゲームだよ。"], ["호석이 형이 <b>꼴</b>찌 해서 삐졌어.", "ホソク兄さん、<b>ビリ</b>になってすねた。"], ["남준이 형, <b>꼴</b>등 탈출 축하해요!", "ナムジュン兄さん、<b>ビリ</b>脱出おめでとうございます！"], ["<b>꼴</b>찌가 1등한테 밥 사는 거 아니었어? 반대야?", "<b>ビリ</b>が1位にご飯おごるんじゃなかった？逆？"]], "글자": [["<b>글자</b> 수 맞춰야 돼.", "<b>文字</b>数を合わせなきゃ。"], ["정국아, <b>글자</b> 좀 크게 써.", "ジョングク、<b>字</b>をもっと大きく書いて。"], ["두 <b>글자</b>인데 왜 세 <b>글자</b>를 썼어?", "2<b>文字</b>なのに、なんで3<b>文字</b>書いたの？"], ["호석이 형이 내 이름 <b>글자</b> 하나 틀렸어.", "ホソク兄さんが俺の名前の字を1つ間違えた。"]], "그림": [["정국아, 너 <b>그림</b> 진짜 잘 그린다.", "ジョングク、<b>絵</b>ほんとに上手だね。"], ["고양이 <b>그림</b>인데 왜 다리가 여섯 개야?", "猫の<b>絵</b>なのに、なんで脚が6本あるの？"], ["지민이가 그려 준 <b>그림</b>, 아직 갖고 있어.", "ジミンが描いてくれた<b>絵</b>、まだ持ってる。"], ["틀린 <b>그림</b> 찾기는 태형이가 제일 잘해.", "間違い探しはテヒョンがいちばん得意。"]], "소리": [["진 형 웃음<b>소리</b> 때문에 안 들려.", "ジン兄さんの笑い<b>声</b>で聞こえない。"], ["지민이 목<b>소리</b> 들으면 마음이 편해져.", "ジミンの<b>声</b>を聞くと、気持ちが落ち着く。"], ["무슨 <b>소리</b> 안 들려?", "何か<b>音</b>、聞こえない？"], ["슈가 형, <b>소리</b>만 듣고 맞혀 보세요.", "シュガ兄さん、<b>音</b>だけ聞いて当ててみてください。"]], "뜨다": [["눈 감으라니까 왜 실눈 <b>떠</b>?", "目閉じろって言ったのに、なんで薄目<b>開けて</b>るの？"], ["지민아, 아침에 눈 <b>뜨자마자</b> 네 생각 났어.", "ジミン、朝<b>目が覚めた</b>瞬間にお前のこと思い出した。"], ["남준이 형, 화면에 정답 <b>떴어요</b>.", "ナムジュン兄さん、画面に正解が出ました。"], ["태형아, 하늘에 달 <b>떴다</b>.", "テヒョン、空に月が出てる。"]], "넘다": [["벌써 10시 <b>넘었어요</b>.", "もう10時過ぎました。"], ["윤기 형, 제한 시간 <b>넘으셨어요</b>.", "ユンギ兄さん、制限時間を<b>過ぎました</b>。"], ["이기려면 80점 <b>넘어야</b> 돼.", "勝つには80点を<b>超えなきゃ</b>。"], ["호석이 형 텐션은 오늘도 한계를 <b>넘었어</b>.", "ホソク兄さんのテンションは、今日も限界を<b>超えた</b>。"]], "따르다": [["남준이 형 지시를 <b>따르세요</b>.", "ナムジュン兄さんの指示に<b>従って</b>ください。"], ["호석이 형 춤, 그대로 <b>따라</b> 해!", "ホソク兄さんのダンス、そのまままねして！"], ["규칙을 <b>따르라고</b> 했지, 형을 <b>따르라고</b>는 안 했어.", "ルールに従えって言ったんだよ。兄さんに従えとは言ってない。"], ["물 좀 <b>따라</b> 줘.", "水ちょっと<b>注いで</b>。"]], "잠시": [["<b>잠시</b>만 기다려 주세요.", "<b>少々</b>お待ちください。"], ["<b>잠시</b> 쉬었다 할까요?", "少し休んでからやりましょうか？"], ["<b>잠시</b>만 <b>잠시</b>만! 아직 준비 안 됐어!", "待って待って！まだ準備できてない！"], ["윤기 형, <b>잠시</b>만요. 이거 반칙 아니에요?", "ユンギ兄さん、<b>ちょっと</b>待ってください。これ反則じゃないですか？"]], "천천히": [["정국아, <b>천천히</b> 말해 봐.", "ジョングク、<b>ゆっくり</b>言ってみて。"], ["호석이 형, <b>천천히</b> 가자. 우리 시간 많아.", "ホソク兄さん、<b>ゆっくり</b>行こう。時間はたくさんある。"], ["태형아, <b>천천히</b> 돌려. 물 쏟아져.", "テヒョン、<b>ゆっくり</b>回して。水こぼれる。"], ["<b>천천히</b> 해도 된다면서 문제는 왜 이렇게 빨리 내?", "<b>ゆっくり</b>でいいって言ったのに、なんで問題はこんなに早く出すの？"]], "가만히": [["진 형은 <b>가만히</b> 있어도 웃겨.", "ジン兄さんは、<b>じっと</b>してても面白い。"], ["<b>가만히</b> 있으면 이기는 게임인데 왜 다들 움직여?", "<b>じっと</b>してれば勝つゲームなのに、なんでみんな動くの？"], ["지민아, <b>가만히</b> 보니까 너 진짜 잘생겼다.", "ジミン、<b>じっと</b>見ると、ほんとにイケメンだな。"], ["슈가 형, 3초만 <b>가만히</b> 계세요.", "シュガ兄さん、3秒だけ<b>じっと</b>しててください。"]], "쉽다": [["정국아, <b>쉬운</b> 거부터 하자.", "ジョングク、<b>簡単なのか</b>らやろう。"], ["이 문제 생각보다 <b>쉽지</b> 않아.", "この問題、思ったより<b>簡単じゃな</b>い。"], ["태형아, <b>쉬운</b> 길로 가자.", "テヒョン、楽な道で行こう。"], ["<b>쉬운</b> 줄 알았는데 <b>쉽지</b> 않네.", "<b>簡単だ</b>と思ったけど、<b>簡単じゃない</b>ね。"]], "어렵다": [["와, 이건 진짜 <b>어렵다</b>.", "わあ、これはほんとに<b>難しい</b>。"], ["남준이 형, 이 문제 너무 <b>어렵다</b>.", "ナムジュン兄さん、この問題<b>難しすぎる</b>。"], ["정국아, <b>어려우면</b> 말해. 도와줄게.", "ジョングク、<b>難しかった</b>ら言って。手伝うよ。"], ["문제가 <b>어려운</b> 게 아니라 우리가 모르는 거야.", "問題が<b>難しい</b>んじゃなくて、俺たちが知らないだけだよ。"]], "다르다": [["두 사진, 어디가 <b>달라</b>?", "二枚の写真、どこが<b>違う</b>？"], ["다른 그림 찾기인데 뭐가 <b>다른</b> 거야?", "間違い探しなんだけど、何が<b>違う</b>の？"], ["남준이 형은 생각하는 게 우리랑 <b>달라</b>.", "ナムジュン兄さんは、考えることが俺たちと<b>違う</b>。"], ["태형아, 우리 팀이랑 답이 <b>달라</b>.", "テヒョン、うちのチームと答えが<b>違う</b>。"]], "마지막": [["나는 맨 <b>마지막</b>에 할게.", "俺は一番<b>最後</b>にやるよ。"], ["진 형, <b>마지막</b> 인사 부탁해요.", "ジン兄さん、<b>最後</b>のあいさつお願いします。"], ["<b>마지막</b> 문제는 100점이래. 지금까지 뭐 한 거야?", "<b>最後</b>の問題は100点だって。今までのは何だったの？"], ["남준이 형이 <b>마지막</b>에 한 말이 계속 생각나.", "ナムジュン兄さんが<b>最後</b>に言った言葉が、ずっと頭に残ってる。"]]};
+const COL=['#FFD84D','#FF7EB6','#7EE0FF','#A6F28B'];
+const SEC={jk:'日本語 → 韓国語',kj:'韓国語 → 日本語',au:'音声の聞き取り',fill:'例文の穴埋め'};
+let Q,i,score,miss,full,MODE='B',player=null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+const parts=tr=>tr.split(/[・（）()、]/).map(s=>s.trim().replace(/^-/,'')).filter(Boolean);
+function overlaps(a,b){for(const x of parts(a))for(const y of parts(b)){
+  if(x===y)return true;
+  if(Math.min(x.length,y.length)>=2&&(x.includes(y)||y.includes(x)))return true;
+  if(x.length>=2&&y.length>=2&&x.slice(0,2)===y.slice(0,2)&&/[一-鿿]/.test(x.slice(0,2)))return true;}
+  return false}
+const trOf=w=>WORDS.find(x=>x.w===w).tr;
+const pickEx=w=>{const e=EXAMPLES[w];return e[Math.floor(Math.random()*e.length)]};
+function makeQ(){
+  const used=new Set(),qs=[];
+  const order=shuffle(WORDS);
+  const take=(n,ok)=>{const r=[];for(const e of order){if(r.length===n)break;if(!used.has(e.w)&&ok(e)){r.push(e);used.add(e.w)}}return r};
+  for(const e of take(5,()=>true)){
+    const wrong=shuffle(WORDS.filter(x=>x.w!==e.w&&!overlaps(x.tr,e.tr))).slice(0,3).map(x=>x.w);
+    const o=shuffle([e.w,...wrong]); qs.push({t:'jk',p:e.tr,o,a:o.indexOf(e.w),w:e.w,m:e.tr,ex:pickEx(e.w)});
+  }
+  for(const e of take(5,()=>true)){
+    const wrong=shuffle(WORDS.filter(x=>x.w!==e.w&&!overlaps(x.tr,e.tr))).slice(0,3).map(x=>x.tr);
+    const o=shuffle([e.tr,...wrong]); qs.push({t:'kj',p:e.w,o,a:o.indexOf(e.tr),w:e.w,m:e.tr,ex:pickEx(e.w)});
+  }
+  for(const e of take(5,e=>AUDIO.some(a=>a.w===e.w))){
+    const a=shuffle(AUDIO.filter(x=>x.w===e.w))[0];
+    const isPhrase=a.ko!==a.w&&a.f.includes('/p_');
+    const pool=AUDIO.filter(x=>x.w!==a.w&&(x.f.includes('/p_')===isPhrase)&&x.ja!==a.ja&&!overlaps(trOf(x.w),trOf(a.w)));
+    const wrong=shuffle(pool).slice(0,3).map(x=>x.ja);
+    const o=shuffle([a.ja,...wrong]); qs.push({t:'au',f:a.f,ko:a.ko,o,a:o.indexOf(a.ja),w:a.ko,m:a.ja});
+  }
+  for(const e of take(5,e=>FILL.some(f=>f.w===e.w))){
+    const f=FILL.find(x=>x.w===e.w);
+    const o=shuffle([f.a,...f.wrong]); qs.push({t:'fill',p:f.p,hint:f.hint,o,a:o.indexOf(f.a),w:f.w,m:trOf(f.w),ex:f.ex});
+  }
+  return qs;
+}
+function koVoice(){return speechSynthesis.getVoices().find(v=>/^ko(-|_|$)/i.test(v.lang))}
+function play(){
+  const q=Q[i];$('#vmsg').textContent='';
+  if(player){player.pause();player=null}
+  if(MODE==='A'){
+    if(!('speechSynthesis' in window)||!koVoice()){$('#vmsg').textContent='この端末には韓国語の読み上げの声がありません。音声Bに切り替えてください。';return}
+    speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(q.ko);u.lang='ko-KR';u.voice=koVoice();speechSynthesis.speak(u);
+  }else{player=new Audio(q.f);player.play()}
+}
+function setMode(m){MODE=m;document.querySelectorAll('.voice button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));if($('#vmsg'))$('#vmsg').textContent=''}
+function stopAudio(){if(player){player.pause();player=null}if('speechSynthesis' in window)speechSynthesis.cancel()}
+function start(list,isFull){Q=list;i=0;score=0;miss=[];full=isFull;$('#tot').textContent=Q.length;show();window.scrollTo(0,0)}
+function show(){
+  $('#bar').style.width=(i/Q.length*100)+'%';
+  const q=Q[i],kro=q.t==='jk'||q.t==='fill';
+  const ask={jk:'この意味の韓国語は？',kj:'この単語の意味は？',au:'聞こえた言葉の意味は？',fill:'空欄に入る言葉は？'}[q.t];
+  const prompt=q.t==='au'?'<button class="play" id="pl">▶ 音声を聞く</button><div class="vmsg" id="vmsg"></div>'
+    :`<div class="prompt ${q.t==='kj'?'kr':q.t==='fill'?'fill':''}">${q.t==='fill'?q.p:esc(q.p)}</div>${q.t==='fill'?`<div class="hint">ヒント：${q.hint}</div>`:''}`;
+  $('#app').innerHTML=`<span class="sec">Q${i+1}.　${SEC[q.t]}</span><div class="card"><div class="num">${ask}</div>${prompt}
+  <div class="opts">${q.o.map((o,k)=>`<button class="${kro?'kr':''}" data-k="${k}" data-l="${'ABCD'[k]}" style="--c:${COL[k]}">${esc(o)}</button>`).join('')}</div>
+  <div class="fb" id="fb"></div><button class="next" id="nx">${i+1<Q.length?'次の問題へ':'結果を見る'}</button></div>`;
+  if($('#pl'))$('#pl').onclick=play;
+  document.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+  $('#nx').onclick=()=>{stopAudio();i++; i<Q.length?show():result()};
+}
+function answer(k){
+  const q=Q[i],bs=document.querySelectorAll('.opts button');
+  bs.forEach(b=>b.disabled=true); bs[q.a].classList.add('ok');
+  const good=k===q.a; if(good)score++; else{bs[k].classList.add('ng');miss.push(q)}
+  const body=q.t==='au'?`<div class="ex">${esc(q.ko)}</div><div class="ja">${esc(q.m)}</div>`
+    :`<div class="ans">正解：<span>${esc(q.w)}</span>　${esc(q.m)}</div><div class="ex">${q.ex[0]}</div><div class="ja">${q.ex[1]}</div>`;
+  $('#fb').innerHTML=`<b style="color:${good?'var(--ok)':'var(--ng)'}">${good?'ピンポーン！ 正解':'ブー！ 正解は「'+esc(q.o[q.a])+'」'}</b>${body}`;
+  $('#fb').style.display='block'; $('#nx').style.display='block';
+}
+function result(){
+  $('#bar').style.width='100%';
+  const pts=Math.round(score/Q.length*100);
+  const msg=score===Q.length?'全問正解！ この章はばっちりです。':score>=Q.length*0.7?'あと少し。間違えた単語を見直しましょう。':'もう一度、章の単語ページを見てから挑戦しましょう。';
+  const head=full?`<div class="score">${pts}<small> 点</small></div><div class="cnt">${Q.length}問中 ${score}問正解（1問5点）</div>`:`<div class="score">${score} / ${Q.length}</div><div class="cnt">間違えた問題のやり直し</div>`;
+  $('#app').innerHTML=`<div class="card result"><div class="num">RESULT</div>${head}<div>${msg}</div>
+  ${miss.length?`<div class="miss">${miss.map(q=>`<div><span class="w">${esc(q.w)}</span>　${esc(q.m)}</div>`).join('')}</div>`:''}
+  <div class="btns">${miss.length?'<button class="p" id="rm">間違えた問題だけもう一度</button>':''}<button id="ra">最初からもう一度</button></div></div>`;
+  if(miss.length)$('#rm').onclick=()=>start(miss.slice(),false);
+  $('#ra').onclick=()=>start(makeQ(),true);
+}
+document.querySelectorAll('.voice button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+setMode('B');
+start(makeQ(),true);
+</script></body></html>
