@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第5章 スパイ・マフィア｜単語チェックテスト</title>
+<meta name="description" content="BTSの韓国語 単語編 第5章「スパイ・マフィア」の単語チェックテスト（全20問・100点満点）">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+KR:wght@500;700;900&family=Shippori+Mincho:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Noto Sans JP',sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 50px;position:relative}
+header{text-align:center;margin:14px 0 18px}
+header .k{font-size:11px;letter-spacing:5px;color:var(--kc)}
+header h1{display:inline-block;font-family:'Shippori Mincho',serif;font-size:30px;margin:8px 0 6px}
+header p{margin:2px 0 0;font-size:13px;color:var(--hp)}
+.bar{height:10px;border-radius:6px;margin:12px 0 0;overflow:hidden;background:var(--barbg);border:2px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--line);width:0;transition:width .3s}
+.sec{display:block;width:max-content;max-width:100%;margin:24px auto -18px;position:relative;z-index:2;font-weight:900;font-size:14px;letter-spacing:2px;color:#fff;background:var(--line);border-radius:30px;padding:8px 22px}
+.card{position:relative;background:var(--card);border:5px solid var(--line);border-radius:22px;padding:30px 18px 20px}
+.num{font-size:12px;color:var(--sub);text-align:center}
+.prompt{font-size:26px;font-weight:700;margin:8px 0 16px;line-height:1.5;text-align:center;color:var(--accent)}
+.prompt.kr{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:40px}
+.prompt.fill{font-family:'Noto Sans KR',sans-serif;font-size:23px;color:var(--ink);text-align:left}
+.blank{display:inline-block;min-width:80px;border-bottom:4px solid var(--accent)}
+.hint{font-size:15px;color:var(--ink);margin:-6px 0 16px;padding:10px 14px;background:var(--hintbg);border-radius:12px}
+.opts{display:grid;gap:12px}
+.opts button{font:inherit;font-size:19px;font-weight:700;text-align:left;padding:13px 16px 13px var(--lpad,58px);position:relative;border-radius:14px;border:0;border-bottom:6px solid var(--line);background:var(--opt);box-shadow:inset 0 0 0 2px var(--optline);color:var(--ink);cursor:pointer;min-height:58px}
+.opts button.kr{font-family:'Noto Sans KR',sans-serif;font-size:22px}
+.opts button::before{content:attr(data-l);position:absolute;left:12px;top:50%;transform:translateY(-50%);min-width:34px;height:34px;padding:0 4px;border-radius:50%;background:var(--c,var(--line));color:var(--lc,#fff);font:900 15px/34px 'Noto Sans JP';text-align:center}
+.opts button:active{transform:translateY(3px);border-bottom-width:3px}
+.opts button.ok{background:#E6F6EC;box-shadow:inset 0 0 0 3px var(--ok);border-bottom-color:var(--ok);color:#16242A}
+.opts button.ng{background:#FCE9E5;box-shadow:inset 0 0 0 3px var(--ng);border-bottom-color:var(--ng);color:#16242A}
+.opts button:disabled{cursor:default}
+.fb{margin-top:16px;padding:14px 16px;border-radius:14px;background:var(--fbbg);display:none}
+.fb .r{font-size:18px;font-weight:900;letter-spacing:1px}
+.fb .ans{margin-top:4px;font-size:15px}
+.fb .ans span{font-family:'Noto Sans KR',sans-serif;font-weight:700}
+.fb .ex{font-family:'Noto Sans KR',sans-serif;font-size:18px;margin-top:8px;line-height:1.5}
+.fb .ex b{color:var(--accent);background:var(--hl);padding:0 3px;border-radius:4px}
+.fb .ja{font-size:14px;color:var(--sub)}
+.next{display:none;margin-top:16px;width:100%;font:inherit;font-weight:900;font-size:18px;padding:14px;border:0;border-radius:40px;background:var(--btn);color:var(--btnc);cursor:pointer;box-shadow:0 5px 0 var(--line)}
+.result{text-align:center}
+.score{font-family:'Shippori Mincho',serif;font-size:72px;line-height:1;color:var(--accent);margin:10px 0 0}
+.score small{font-size:24px}
+.cnt{font-size:14px;color:var(--sub);margin:6px 0 10px}
+.rank{display:inline-block;font-weight:900;font-size:20px;color:#fff;background:var(--line);border-radius:30px;padding:6px 20px;margin:6px 0 10px}
+.msg{font-size:15px}
+.miss{text-align:left;margin-top:16px}
+.miss h3{font-size:14px;margin:0 0 4px;color:var(--sub)}
+.miss div{padding:10px 0;border-bottom:1px dashed var(--optline)}
+.miss .w{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:20px;color:var(--accent);margin-right:8px}
+.btns{display:grid;gap:10px;margin-top:18px}
+.btns button,.btns a{font:inherit;font-weight:900;font-size:16px;padding:13px;border-radius:40px;border:3px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer;text-decoration:none;display:block}
+.btns button.p{background:var(--btn);color:var(--btnc);box-shadow:0 5px 0 var(--line)}
+footer{text-align:center;font-size:12px;color:var(--kc);margin-top:26px;letter-spacing:2px}
+footer a{color:inherit}
+
+:root{--bg:#151515;--ink:#1E1A16;--sub:#6D655A;--kc:#C9BFA8;--hp:#C9BFA8;--line:#1E1A16;--accent:#1E1A16;--card:#EFE5CF;--opt:#F8F2E4;--optline:#D9CDB2;--barbg:#333;--hintbg:#E3D7BC;--fbbg:#F8F2E4;--hl:#1E1A16;--btn:#1E1A16;--btnc:#EFE5CF;--ok:#1E9E5A;--ng:#C0392B;--lpad:62px}
+body{background:#151515}
+header h1{color:#EFE5CF;border:3px solid #EFE5CF;padding:6px 22px;border-radius:4px}
+header h1::after{content:"極秘";display:inline-block;margin-left:10px;font:900 13px 'Noto Sans JP';color:#D23C3C;border:2px solid #D23C3C;padding:2px 6px;transform:rotate(-8deg);vertical-align:middle}
+.bar{border-color:#EFE5CF}.bar i{background:#D23C3C}
+.sec{background:#EFE5CF;color:#1E1A16;border-radius:8px 8px 0 0;margin:24px 0 0 0;padding:6px 18px;font-size:12px}
+.card{border:0;border-radius:0 12px 12px 12px;padding-top:24px}
+.card::after{content:"CONFIDENTIAL";position:absolute;right:14px;top:-14px;background:#EFE5CF;font:900 11px 'Noto Sans JP';letter-spacing:2px;color:#D23C3C;border:2px solid #D23C3C;padding:1px 6px;transform:rotate(6deg);opacity:.8}
+.opts button{border-radius:6px;border-bottom-color:#1E1A16}
+.opts button::before{border-radius:4px;background:#1E1A16;color:#EFE5CF;width:38px}
+.fb .ex b{color:#fff}
+.next{box-shadow:0 5px 0 #000}
+.rank{background:#D23C3C}
+footer{color:#8D8573}
+</style></head><body class="ch5"><div class="wrap">
+<header><div class="k">CHAPTER 05 ／ MAFIA GAME</div><h1 data-n="5">スパイ・マフィア</h1><p>単語チェックテスト｜全<span id="tot"></span>問・100点満点</p><div class="bar"><i id="bar"></i></div></header>
+<div id="app"></div>
+<footer>BTSの韓国語　単語編 ／ 韓活韓国語</footer></div>
+<script>
+const ALL=[{"t": "jk", "p": "間違える", "o": ["똑같다", "틀리다", "그러면", "믿다"], "a": 1, "w": "틀리다", "m": "間違える", "ex": ["이번엔 하나도 <b>틀리면</b> 안 돼.", "今回は一つも間違えちゃだめ。"]}, {"t": "jk", "p": "まさか", "o": ["처음", "믿다", "방금", "설마"], "a": 3, "w": "설마", "m": "まさか", "ex": ["정국아, <b>설마</b> 벌써 다 먹었어?", "ジョングク、まさかもう全部食べた？"]}, {"t": "jk", "p": "さっき", "o": ["잘못", "아까", "바로", "뽑다"], "a": 1, "w": "아까", "m": "さっき", "ex": ["호석이 형, <b>아까</b> 그 춤 한 번만 더!", "ホソク兄さん、さっきのダンス、もう一回だけ！"]}, {"t": "jk", "p": "死ぬ", "o": ["혹시", "찾다", "듣다", "죽다"], "a": 3, "w": "죽다", "m": "死ぬ", "ex": ["더워 <b>죽겠다</b>.", "暑くて死にそう。"]}, {"t": "jk", "p": "まったく同じだ", "o": ["계속", "똑같다", "찾다", "바로"], "a": 1, "w": "똑같다", "m": "まったく同じだ", "ex": ["정국아, 너랑 나랑 답이 <b>똑같아</b>.", "ジョングク、お前と俺、答えが同じ。"]}, {"t": "jk", "p": "聞く", "o": ["이미", "제발", "듣다", "끝나다"], "a": 2, "w": "듣다", "m": "聞く", "ex": ["태형아, 내 말 좀 <b>들어</b> 봐.", "テヒョン、俺の話、ちょっと聞いて。"]}, {"t": "jk", "p": "探す・見つける", "o": ["뽑다", "생각", "찾다", "이미"], "a": 2, "w": "찾다", "m": "探す・見つける", "ex": ["정국아, 내 휴대폰 좀 <b>찾아</b> 줘.", "ジョングク、俺の携帯ちょっと探して。"]}, {"t": "kj", "p": "그러면", "o": ["考え・思い", "聞く", "さっき", "それなら・じゃあ"], "a": 3, "w": "그러면", "m": "それなら・じゃあ", "ex": ["자 <b>그러면</b>, 투표를 시작할게요.", "さあ、それでは、投票を始めます。"]}, {"t": "kj", "p": "머리", "o": ["たった今", "頭・髪", "言葉・話", "もう・すでに"], "a": 1, "w": "머리", "m": "頭・髪", "ex": ["진 형, <b>머리</b> 조심해요! 문이 낮아요.", "ジン兄さん、頭気をつけて！ドアが低いです。"]}, {"t": "kj", "p": "계속", "o": ["さっき", "信じる", "ずっと・続けて", "引く・選ぶ"], "a": 2, "w": "계속", "m": "ずっと・続けて", "ex": ["진 형, <b>계속</b> 말해요. 듣고 있어요.", "ジン兄さん、続けて話してください。聞いてます。"]}, {"t": "kj", "p": "제발", "o": ["まさか", "どうか・お願い", "聞く", "しきりに・何度も"], "a": 1, "w": "제발", "m": "どうか・お願い", "ex": ["정국아, <b>제발</b> 다치지 마.", "ジョングク、頼むから怪我しないで。"]}, {"t": "kj", "p": "눈", "o": ["聞く", "ずっと・続けて", "お言葉", "目"], "a": 3, "w": "눈", "m": "目", "ex": ["무대에서 아미들 <b>눈</b>을 보면 힘이 나요.", "ステージでARMYのみんなの目を見ると、力が出ます。"]}, {"t": "kj", "p": "솔직히", "o": ["もしかして", "正直に", "信じる", "終わる"], "a": 1, "w": "솔직히", "m": "正直に", "ex": ["<b>솔직히</b> 말해서, 처음부터 형이 수상했어요.", "正直に言うと、最初から兄さんが怪しかったです。"]}, {"t": "kj", "p": "자꾸", "o": ["驚く", "しきりに・何度も", "すぐに・まさに", "死ぬ"], "a": 1, "w": "자꾸", "m": "しきりに・何度も", "ex": ["하지 말라니까 <b>자꾸</b> 해.", "やめてって言ってるのに、何度もやる。"]}, {"t": "fill", "p": "진 형, 천천히 <span class=\"blank\">　</span>해요.", "hint": "ジン兄さん、ゆっくり話してください。", "o": ["그러면", "혹시", "말", "제발"], "a": 2, "w": "말", "m": "言葉・話", "ex": ["진 형, 천천히 <b>말</b>해요.", "ジン兄さん、ゆっくり話してください。"]}, {"t": "fill", "p": "정국아, 이거 <span class=\"blank\">　</span> 해 봐?", "hint": "ジョングク、これ初めてやる？", "o": ["눈", "처음", "말씀", "제발"], "a": 1, "w": "처음", "m": "初めて・最初", "ex": ["정국아, 이거 <b>처음</b> 해 봐?", "ジョングク、これ初めてやる？"]}, {"t": "fill", "p": "뭐? 내가 <span class=\"blank\">　</span> 들었나?", "hint": "え？俺、聞き間違えた？", "o": ["설마", "제발", "혹시", "잘못"], "a": 3, "w": "잘못", "m": "間違い・うっかり", "ex": ["뭐? 내가 <b>잘못</b> 들었나?", "え？俺、聞き間違えた？"]}, {"t": "fill", "p": "첫 문제부터 <span class=\"blank\">　</span> 틀렸어.", "hint": "最初の問題から、もう間違えた。", "o": ["자꾸", "이미", "마음", "아까"], "a": 1, "w": "이미", "m": "もう・すでに", "ex": ["첫 문제부터 <b>이미</b> 틀렸어.", "最初の問題から、もう間違えた。"]}, {"t": "fill", "p": "마피아가 나를 <span class=\"blank\">　</span> 줬어? 왜?", "hint": "マフィアが俺を生かしてくれた？なんで？", "o": ["살려", "놀랐어", "들었어", "틀리면"], "a": 0, "w": "살리다", "m": "助ける・生かす", "ex": ["마피아가 나를 <b>살려</b> 줬어? 왜?", "マフィアが俺を生かしてくれた？なんで？"]}, {"t": "fill", "p": "윤기 형이 울어서 다들 <span class=\"blank\">　</span>.", "hint": "ユンギ兄さんが泣いて、みんな驚いた。", "o": ["믿고", "뽑아", "죽을", "놀랐어"], "a": 3, "w": "놀라다", "m": "驚く", "ex": ["윤기 형이 울어서 다들 <b>놀랐어</b>.", "ユンギ兄さんが泣いて、みんな驚いた。"]}];
+const LAB=["A", "B", "C", "D"];
+const COL=[];
+const OK="正解！ 見抜いた",NG="ハズレ… だまされた";
+const RANK=["名探偵", "敏腕刑事", "見習い探偵", "容疑者…？"];
+const BUZZ="";
+
+const SEC={jk:'日本語 → 韓国語',kj:'韓国語 → 日本語',fill:'例文の穴埋め'};
+let Q,i,score,miss,full;
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function start(list,isFull){Q=list;i=0;score=0;miss=[];full=isFull;$('#tot').textContent=Q.length;show();window.scrollTo(0,0)}
+function show(){
+  $('#bar').style.width=(i/Q.length*100)+'%';
+  const q=Q[i],kro=q.t!=='kj';
+  const ask=q.t==='jk'?'この意味の韓国語は？':q.t==='kj'?'この単語の意味は？':'空欄に入る言葉は？';
+  const p=q.t==='fill'?q.p:esc(q.p);
+  $('#app').innerHTML=`<span class="sec">Q${i+1}.　${SEC[q.t]}</span><div class="card"><div class="num">${ask}　（${i+1} / ${Q.length}）</div>
+  <div class="prompt ${q.t==='kj'?'kr':q.t==='fill'?'fill':''}">${p}</div>${q.t==='fill'?`<div class="hint">ヒント：${esc(q.hint)}</div>`:''}
+  ${BUZZ}<div class="opts">${q.o.map((o,k)=>`<button class="${kro?'kr':''}" data-k="${k}" data-l="${LAB[k]}" style="--c:${COL[k]||''}">${esc(o)}</button>`).join('')}</div>
+  <div class="fb" id="fb" aria-live="polite"></div><button class="next" id="nx">${i+1<Q.length?'次の問題へ':'結果を見る'}</button></div>`;
+  document.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+  $('#nx').onclick=()=>{i++; i<Q.length?show():result(); window.scrollTo({top:0,behavior:'smooth'})};
+}
+function answer(k){
+  const q=Q[i],bs=document.querySelectorAll('.opts button');
+  bs.forEach(b=>b.disabled=true); bs[q.a].classList.add('ok');
+  const good=k===q.a; if(good)score++; else{bs[k].classList.add('ng');miss.push(q)}
+  $('#fb').innerHTML=`<div class="r" style="color:${good?'var(--ok)':'var(--ng)'}">${good?OK:NG}</div>
+  <div class="ans">正解：<span>${esc(q.w)}</span>　${esc(q.m)}</div>
+  <div class="ex">${q.ex[0]}</div><div class="ja">${esc(q.ex[1])}</div>`;
+  $('#fb').style.display='block'; $('#nx').style.display='block';
+  $('#nx').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function result(){
+  $('#bar').style.width='100%';
+  const pts=Math.round(score/Q.length*100);
+  const lv=pts===100?0:pts>=80?1:pts>=60?2:3;
+  const msg=['全問正解！ この章の単語はばっちりです。','よくできました。間違えた単語だけ見直しましょう。','あと少し。間違えた単語を見直してから、もう一度。','章の単語ページをもう一度見てから、挑戦しましょう。'][lv];
+  const head=full?`<div class="score">${pts}<small> 点</small></div><div class="cnt">${Q.length}問中 ${score}問正解（1問5点）</div>`
+                 :`<div class="score">${score}<small> / ${Q.length}</small></div><div class="cnt">間違えた問題のやり直し</div>`;
+  $('#app').innerHTML=`<div class="card result"><div class="num">RESULT</div>${head}<div class="rank">${RANK[lv]}</div><div class="msg">${msg}</div>
+  ${miss.length?`<div class="miss"><h3>間違えた単語</h3>${miss.map(q=>`<div><span class="w">${esc(q.w)}</span>${esc(q.m)}</div>`).join('')}</div>`:''}
+  <div class="btns">${miss.length?'<button class="p" id="rm">間違えた問題だけもう一度</button>':''}<button id="ra">最初からもう一度</button><a href="../">ほかの章を選ぶ</a></div></div>`;
+  if(miss.length)$('#rm').onclick=()=>start(miss.slice(),false);
+  $('#ra').onclick=()=>start(ALL.slice(),true);
+  window.scrollTo(0,0);
+}
+start(ALL.slice(),true);
+</script></body></html>
